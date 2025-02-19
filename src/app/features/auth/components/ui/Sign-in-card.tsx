@@ -6,14 +6,21 @@ import {FcGoogle} from "react-icons/fc";
 import {FaGithub} from "react-icons/fa";
 import {SignInFlow} from "@/app/features/auth/types";
 import {useState} from "react";
+import { useAuthActions } from "@convex-dev/auth/react";
 
 interface SingInCardProps {
     setState: (state: SignInFlow) => void;
 }
 
 export const SingInCard = ({setState}: SingInCardProps) => {
+    const {signIn } = useAuthActions();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const handleProviderSignIn=(value: "github" | "google")=>{
+        signIn(value);
+    }
 
     return (
         <Card className="w-full h-full p-8">
@@ -35,7 +42,7 @@ export const SingInCard = ({setState}: SingInCardProps) => {
                 <div className="flex flex-col gap-y-2.5">
                     <Button disabled={false} onClick={()=>{}} variant="outline" size="lg" className="w-full relative">
                         <FcGoogle className="size-5 absolute top-3 left-2.5"/>Continue with Google</Button>
-                    <Button disabled={false} onClick={()=>{}} variant="outline" size="lg" className="w-full relative">
+                    <Button disabled={false} onClick={()=>handleProviderSignIn("github")} variant="outline" size="lg" className="w-full relative">
                         <FaGithub className="size-5 absolute top-3 left-2.5"/>Continue with Github</Button>
                 </div>
                 <p className="text-xs text-muted-foreground">Don&apos;t have an account?
