@@ -1,5 +1,6 @@
-import { defineSchema } from "convex/server";
+import {defineSchema, defineTable} from "convex/server";
 import { authTables } from "@convex-dev/auth/server";
+import {v} from "convex/values";
 
 // Define the schema for your Convex backend
 const schema = defineSchema({
@@ -14,6 +15,12 @@ const schema = defineSchema({
     //     isCompleted: v.boolean(),
     //     userId: v.id("users"), // Reference to the users table
     // }),
+    workspaces: defineTable({
+        name: v.string(),
+        userId: v.id("users"),
+        joinCode: v.string(),
+    })
+
 });
 
 export default schema;
